@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         // REMPLACE 'ton-user-docker' par le vrai nom du compte DockerHub de l'équipe
-        DOCKER_IMAGE = "ton-user-docker/gestionstock" 
+        DOCKER_IMAGE = "mouhamet07/devops-project" 
         
         // REMPLACE 'dockerhub-id' par l'ID que Mouhamet a créé dans Jenkins
-        REGISTRY_CREDENTIALS = "dockerhub-id"
+        REGISTRY_CREDENTIALS = "devops"
     }
 
     stages {
