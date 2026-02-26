@@ -1,0 +1,51 @@
+pipeline {
+    agent any 
+
+    environment {
+        // REMPLACE 'ton-user-docker' par le vrai nom du compte DockerHub de l'équipe
+        DOCKER_IMAGE = "ton-user-docker/gestionstock" 
+        
+        // REMPLACE 'dockerhub-id' par l'ID que Mouhamet a créé dans Jenkins
+        REGISTRY_CREDENTIALS = "dockerhub-id"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm // Récupère le code depuis GitHub
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                // On entre dans le dossier gestionStock pour compiler
+                sh "dotnet build gestionStock/gestionStock.csproj"
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                // script {} permet d'utiliser des fonctions avancées comme withCredentials
+                script {
+                    // On build l'image à partir du dossier où se trouve le Dockerfile
+                    sh "docker build -t ${DOCKER_IMAGE}:latest ./gestionStock"
+
+                    // On demande à Jenkins d'extraire le login/pass du coffre-fort
+                    withCredentials([usernamePassword(credentialsId: "${REGISTRY_CREDENTIALS}", passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                        sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
+                        sh "docker push ${DOCKER_IMAGE}:latest"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                // On applique les fichiers de Hilly et Reine
+                // Attention : vérifie si l'extension est .yml ou .yaml dans ton dossier !
+                sh "kubectl apply -f gestionStock/k8s/deployment.yaml"
+                sh "kubectl apply -f gestionStock/k8s/service.yaml"
+            }
+        }
+    }
+}
