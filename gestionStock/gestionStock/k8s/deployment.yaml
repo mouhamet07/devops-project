@@ -18,7 +18,7 @@ spec:
 
     spec:
       containers:
-        - name: mon-container
+        - name: gestionstock-container
           image: mouhamet07/devops-project:latest
           ports:
             - containerPort: 80
