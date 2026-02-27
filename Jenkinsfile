@@ -1,48 +1,43 @@
 pipeline {
     agent any 
-
     environment {
-        // REMPLACE 'ton-user-docker' par le vrai nom du compte DockerHub de l'équipe
-        DOCKER_IMAGE = "mouhamet07/devops-project" 
-        
-        // REMPLACE 'dockerhub-id' par l'ID que Mouhamet a créé dans Jenkins
+        DOCKER_IMAGE = "mouhamet07/devops-project"
         REGISTRY_CREDENTIALS = "devops"
     }
-
     stages {
         stage('Checkout') {
             steps {
-                checkout scm // Récupère le code depuis GitHub
+                checkout scm
             }
         }
-
         stage('Build & Test') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/dotnet/sdk:8.0'
+                }
+            }
             steps {
-                // On entre dans le dossier gestionStock pour compiler
-                sh "dotnet build gestionStock/gestionStock.csproj"
+                sh "dotnet restore gestionStock/gestionStock.csproj"
+                sh "dotnet build gestionStock/gestionStock.csproj --configuration Release"
             }
         }
-
         stage('Docker Build & Push') {
             steps {
-                // script {} permet d'utiliser des fonctions avancées comme withCredentials
                 script {
-                    // On build l'image à partir du dossier où se trouve le Dockerfile
                     sh "docker build -t ${DOCKER_IMAGE}:latest ./gestionStock"
-
-                    // On demande à Jenkins d'extraire le login/pass du coffre-fort
-                    withCredentials([usernamePassword(credentialsId: "${REGISTRY_CREDENTIALS}", passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
+                    withCredentials([usernamePassword(
+                        credentialsId: "${REGISTRY_CREDENTIALS}",
+                        passwordVariable: 'DOCKER_PASS',
+                        usernameVariable: 'DOCKER_USER'
+                    )]) {
                         sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
                         sh "docker push ${DOCKER_IMAGE}:latest"
                     }
                 }
             }
         }
-
         stage('Deploy to Kubernetes') {
             steps {
-                // On applique les fichiers de Hilly et Reine
-                // Attention : vérifie si l'extension est .yml ou .yaml dans ton dossier !
                 sh "kubectl apply -f gestionStock/k8s/deployment.yaml"
                 sh "kubectl apply -f gestionStock/k8s/service.yaml"
             }
