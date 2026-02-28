@@ -10,11 +10,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout scm    
             }
         }
 
         stage('Build & Test') {
+<<<<<<< HEAD
             agent {
                 docker {
                     image 'mcr.microsoft.com/dotnet/sdk:8.0'
@@ -34,6 +35,7 @@ pipeline {
         stage('Docker Build & Push') {
             // ← back to Jenkins container → docker works here
             steps {
+
                 dir('gestionStock') {   // or wherever your Dockerfile lives
                     sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                 }
@@ -45,6 +47,7 @@ pipeline {
                 )]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
                     sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+
                 }
             }
         }
