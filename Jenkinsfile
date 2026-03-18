@@ -31,10 +31,8 @@ pipeline {
         }
 
         stage('Docker Build & Push') {
-            steps {
-                dir('/') {   
+            steps {  
                     sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-                }
 
                 withCredentials([usernamePassword(
                     credentialsId: "${REGISTRY_CREDENTIALS}",
