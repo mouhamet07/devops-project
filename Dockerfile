@@ -1,13 +1,17 @@
 # ----- Build stage -----
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-# Copier le fichier csproj 
-COPY gestionStock.csproj ./
+
+# Copier tout le dossier projet
+COPY gestionStock/gestionStock ./gestionStock
+
+# Se placer dans le bon dossier
+WORKDIR /src/gestionStock
+
+# Restore + build
 RUN dotnet restore
-# Copier le reste du code
-COPY . ./
-# Publier l'application
 RUN dotnet publish -c Release -o /app/publish
+
 # ----- Runtime stage -----
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
