@@ -32,7 +32,7 @@ pipeline {
 
         stage('Docker Build & Push') {
             steps {
-                dir('gestionStock') {   
+                dir('/') {   
                     sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                 }
 
