@@ -1,10 +1,10 @@
 pipeline {
-    agent any   // ← default = your Jenkins container (has docker)
+    agent any  
 
     environment {
         DOCKER_IMAGE = "mouhamet07/devops-project"
         REGISTRY_CREDENTIALS = "devops"
-        DOCKER_TAG = "latest"   // or "${BUILD_NUMBER}" later
+        DOCKER_TAG = "${BUILD_NUMBER}" 
         DOTNET_CLI_HOME = "${WORKSPACE}/.dotnet"
     }
 
@@ -19,23 +19,20 @@ pipeline {
             agent {
                 docker {
                     image 'mcr.microsoft.com/dotnet/sdk:8.0'
-                    // Reuse workspace so you don't re-clone git inside container
                     reuseNode true
                 }
             }
             steps {
-                dir('gestionStock') {
+                dir('gestionStock/gestionStock') {
                     sh 'dotnet restore gestionStock.csproj'
                     sh 'dotnet build gestionStock.csproj --configuration Release'
-                    // sh 'dotnet test ...' if you have tests
                 }
             }
         }
 
         stage('Docker Build & Push') {
-            // ← back to Jenkins container → docker works here
             steps {
-                dir('gestionStock') {   // or wherever your Dockerfile lives
+                dir('gestionStock') {   
                     sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                 }
 
