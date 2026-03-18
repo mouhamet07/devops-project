@@ -5,6 +5,7 @@ pipeline {
         DOCKER_IMAGE = "mouhamet07/devops-project"
         REGISTRY_CREDENTIALS = "devops"
         DOCKER_TAG = "latest"   // or "${BUILD_NUMBER}" later
+        DOTNET_CLI_HOME = "${WORKSPACE}/.dotnet"
     }
 
     stages {
