@@ -9,6 +9,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -32,7 +33,7 @@ pipeline {
 
         stage('Docker Build & Push') {
             steps {  
-                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
 
                 withCredentials([usernamePassword(
                     credentialsId: "${REGISTRY_CREDENTIALS}",
@@ -44,18 +45,20 @@ pipeline {
                 }
             }
         }
-    }
-    stage('Deploy to Kubernetes') {
-        steps {
-            withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
-                sh '''
-                    echo "$KUBECONFIG_CONTENT" > kubeconfig.yaml
-                    export KUBECONFIG=$(pwd)/kubeconfig.yaml
 
-                    kubectl apply -f gestionStock/k8s/deployment.yaml
-                    kubectl apply -f gestionStock/k8s/service.yaml
-                '''
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
+                    sh '''
+                        echo "$KUBECONFIG_CONTENT" > kubeconfig.yaml
+                        export KUBECONFIG=$(pwd)/kubeconfig.yaml
+
+                        kubectl apply -f gestionStock/k8s/deployment.yaml
+                        kubectl apply -f gestionStock/k8s/service.yaml
+                    '''
+                }
             }
         }
+
     }
 }
