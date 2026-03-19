@@ -49,8 +49,8 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'kubeconf', variable: 'KUBECONFIG_PATH')]) {
-                    sh 'kubectl apply -f gestionStock/k8s/deployment.yaml --kubeconfig $KUBECONFIG_PATH'
-                    sh 'kubectl apply -f gestionStock/k8s/service.yaml --kubeconfig $KUBECONFIG_PATH'
+                    sh 'kubectl apply -f k8s/deployment.yaml --kubeconfig $KUBECONFIG_PATH'
+                    sh 'kubectl apply -f k8s/service.yaml --kubeconfig $KUBECONFIG_PATH'
                 }
             }
         }
