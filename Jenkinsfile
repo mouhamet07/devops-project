@@ -48,16 +48,9 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
-                    script {
-                        // Écrire le fichier kubeconfig en mode "raw"
-                        writeFile file: 'kubeconfig.yaml', text: KUBECONFIG_CONTENT
-                        env.KUBECONFIG = "${WORKSPACE}/kubeconfig.yaml"
-
-                        // Appliquer les manifests
-                        sh 'kubectl apply -f gestionStock/k8s/deployment.yaml'
-                        sh 'kubectl apply -f gestionStock/k8s/service.yaml'
-                    }
+                withCredentials([file(credentialsId: 'kubeconfig-file', variable: 'KUBECONFIG_PATH')]) {
+                    sh 'kubectl apply -f gestionStock/k8s/deployment.yaml --kubeconfig $KUBECONFIG_PATH'
+                    sh 'kubectl apply -f gestionStock/k8s/service.yaml --kubeconfig $KUBECONFIG_PATH'
                 }
             }
         }
