@@ -44,11 +44,14 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy to Kubernetes') {
-            // ← also on Jenkins container → needs kubectl installed
-            steps {
+    }
+    stage('Deploy to Kubernetes') {
+        steps {
+            withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
                 sh '''
+                    echo "$KUBECONFIG_CONTENT" > kubeconfig.yaml
+                    export KUBECONFIG=$(pwd)/kubeconfig.yaml
+
                     kubectl apply -f gestionStock/k8s/deployment.yaml
                     kubectl apply -f gestionStock/k8s/service.yaml
                 '''
