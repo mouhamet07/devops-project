@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "mouhamet07/devops-project"
         REGISTRY_CREDENTIALS = "dockerhub-cred"
-        DOCKER_TAG = "${BUILD_NUMBER}" 
+        DOCKER_TAG = "latest" //"${BUILD_NUMBER}" 
         DOTNET_CLI_HOME = "${WORKSPACE}/.dotnet"
     }
 
