@@ -36,7 +36,6 @@ pipeline {
         stage('Docker Build & Push') {
             steps {  
                 sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-
                 withCredentials([usernamePassword(
                     credentialsId: "${REGISTRY_CREDENTIALS}",
                     usernameVariable: 'USER',
@@ -60,15 +59,11 @@ pipeline {
                         ) == 0
                         
                         if (exists) {
-                            // Met à jour l'image avec le tag du build
                             sh "kubectl set image deployment/${K8S_DEPLOYMENT} ${K8S_CONTAINER}=${DOCKER_IMAGE}:${DOCKER_TAG} --kubeconfig $KUBECONFIG_PATH"
                         } else {
-                            // Crée le deployment puis applique l'image correcte
                             sh "kubectl apply -f k8s/deployment.yaml --kubeconfig $KUBECONFIG_PATH"
                             sh "kubectl set image deployment/${K8S_DEPLOYMENT} ${K8S_CONTAINER}=${DOCKER_IMAGE}:${DOCKER_TAG} --kubeconfig $KUBECONFIG_PATH"
                         }
-
-                        // Attend que le déploiement soit terminé
                         sh "kubectl rollout status deployment/${K8S_DEPLOYMENT} --kubeconfig $KUBECONFIG_PATH"
                     }
                 }
