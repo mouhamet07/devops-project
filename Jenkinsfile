@@ -4,8 +4,10 @@ pipeline {
     environment {
         DOCKER_IMAGE = "mouhamet07/devops-project"
         REGISTRY_CREDENTIALS = "dockerhub-cred"
-        DOCKER_TAG = "latest" //"${BUILD_NUMBER}" 
+        DOCKER_TAG = "${BUILD_NUMBER}" 
         DOTNET_CLI_HOME = "${WORKSPACE}/.dotnet"
+        K8S_DEPLOYMENT = "gestionstock-deployment"
+        K8S_CONTAINER = "gestionstock-container"
     }
 
     stages {
@@ -49,8 +51,26 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'kubeconf', variable: 'KUBECONFIG_PATH')]) {
-                    sh 'kubectl apply -f k8s/deployment.yaml --kubeconfig $KUBECONFIG_PATH'
-                    sh 'kubectl apply -f k8s/service.yaml --kubeconfig $KUBECONFIG_PATH'
+                    
+                    script {
+                        // Vérifie si le deployment existe
+                        def exists = sh(
+                            script: "kubectl get deployment ${K8S_DEPLOYMENT} --kubeconfig $KUBECONFIG_PATH --ignore-not-found",
+                            returnStatus: true
+                        ) == 0
+                        
+                        if (exists) {
+                            // Met à jour l'image avec le tag du build
+                            sh "kubectl set image deployment/${K8S_DEPLOYMENT} ${K8S_CONTAINER}=${DOCKER_IMAGE}:${DOCKER_TAG} --kubeconfig $KUBECONFIG_PATH"
+                        } else {
+                            // Crée le deployment puis applique l'image correcte
+                            sh "kubectl apply -f k8s/deployment.yaml --kubeconfig $KUBECONFIG_PATH"
+                            sh "kubectl set image deployment/${K8S_DEPLOYMENT} ${K8S_CONTAINER}=${DOCKER_IMAGE}:${DOCKER_TAG} --kubeconfig $KUBECONFIG_PATH"
+                        }
+
+                        // Attend que le déploiement soit terminé
+                        sh "kubectl rollout status deployment/${K8S_DEPLOYMENT} --kubeconfig $KUBECONFIG_PATH"
+                    }
                 }
             }
         }
