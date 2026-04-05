@@ -11,7 +11,7 @@ namespace gestionStock.Models
         public int Id { get; set;}
         public string Libelle { get; set;}
         public int Quantite { get; set;}
-        public bool IsArchived{ get; set;} = true;
+        public bool IsArchived{ get; set;} = false;
         public EtatProduit etat { get; set;} = EtatProduit.EN_STOCK;
         public Categorie categorie { get; set;}
         public int CategorieId { get; set;}
