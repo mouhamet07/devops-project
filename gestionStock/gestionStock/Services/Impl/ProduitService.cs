@@ -14,11 +14,11 @@ namespace gestionStock.Services.Impl
         public void AddProduit(Produit produit)
         {
             if (produit == null)
-                throw new ArgumentNullException(nameof(produit));
-            if (produit.Quantite <= 0)
+                return;
+
+            if (produit.Quantite == 0)
             {
                 produit.etat = EtatProduit.EN_RUPTURE;
-                produit.Quantite = 0; 
             }
             else
             {
@@ -26,15 +26,16 @@ namespace gestionStock.Services.Impl
             }
 
             produit.IsArchived = false;
-        
-            Categorie categorie = _context.Categories.Find(produit.categorie.Id);
-            if (categorie == null)
-                throw new Exception("Cette catégorie n'existe pas");
 
-            produit.categorie = categorie;
+            var categorie = _context.Categories.Find(produit.CategorieId);
 
-            _context.Produits.Add(produit);
-            _context.SaveChanges();
+            if (categorie != null)
+            {
+                produit.categorie = categorie;
+
+                _context.Produits.Add(produit);
+                _context.SaveChanges();
+            }
         }
-    }
-    }
+        }
+}

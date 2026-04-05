@@ -1,0 +1,224 @@
+@{
+    ViewData["Title"] = "Ajouter produit";
+}
+
+<style>
+    body {
+        background: #F3F4F6;
+    }
+
+    .container-full {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #FFFFFF;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: 0.3s;
+    }
+
+    .container-full:hover {
+        box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+        font-weight: bold;
+        color: #1E3A8A;
+    }
+
+    .header p {
+        color: #6B7280;
+        margin-top: 5px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-size: 14px;
+        margin-bottom: 6px;
+        color: #374151;
+        font-weight: 500;
+    }
+
+    input, select {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #E5E7EB;
+        font-size: 14px;
+        transition: 0.2s;
+        background: #F9FAFB;
+    }
+
+    input:hover, select:hover {
+        border-color: #F59E0B;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        border-color: #1E3A8A;
+        box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.1);
+    }
+
+    .full-width {
+        grid-column: span 2;
+    }
+
+    .button-area {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Bouton principal */
+    .btn {
+        background: #1E3A8A;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 2px 6px rgba(30, 58, 138, 0.2);
+    }
+
+    .btn:hover {
+        background: #1E40AF;
+        transform: translateY(-1px);
+    }
+
+    /* Badges */
+    .badge {
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+        transition: 0.2s;
+        opacity: 0.5;
+    }
+
+    .stock {
+        background: #DCFCE7;
+        color: #166534;
+    }
+
+    .rupture {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
+
+    .active {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    /* Texte dynamique */
+    .etat-text {
+        font-size: 13px;
+        margin-top: 10px;
+        font-weight: 500;
+    }
+
+    .status-box {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+</style>
+
+<div class="container-full">
+
+    <div class="header">
+        <h1>Ajouter un produit</h1>
+        <p>Créer un nouveau produit et gérer le stock</p>
+    </div>
+
+    <form method="post">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Libellé</label>
+                <input type="text" name="Libelle" placeholder="Ex: Riz, Coca..." />
+            </div>
+
+            <div class="form-group">
+                <label>Quantité</label>
+                <input type="number" name="Quantite" placeholder="Ex: 10" />
+            </div>
+
+            <div class="form-group full-width">
+                <label>Catégorie</label>
+                <select name="CategorieId">
+                    <option value="1">Aliment</option>
+                    <option value="2">Boisson</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="button-area">
+
+            <div class="status-box">
+                <div>
+                    <span class="badge stock">En stock</span>
+                    <span class="badge rupture">Rupture</span>
+                </div>
+                <span id="etatText" class="etat-text"></span>
+            </div>
+
+            <button type="submit" class="btn">
+                Ajouter le produit
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    const quantiteInput = document.querySelector('input[name="Quantite"]');
+    const stockBadge = document.querySelector('.stock');
+    const ruptureBadge = document.querySelector('.rupture');
+    const etatText = document.getElementById("etatText");
+
+    function updateEtat() {
+        const value = parseInt(quantiteInput.value);
+
+        if (value > 0) {
+            stockBadge.classList.add("active");
+            ruptureBadge.classList.remove("active");
+
+            etatText.innerText = "Produit disponible";
+            etatText.style.color = "#16A34A";
+        } else {
+            ruptureBadge.classList.add("active");
+            stockBadge.classList.remove("active");
+
+            etatText.innerText = "Produit en rupture";
+            etatText.style.color = "#DC2626";
+        }
+    }
+
+    quantiteInput.addEventListener('input', updateEtat);
+
+    
+    updateEtat();
+</script>

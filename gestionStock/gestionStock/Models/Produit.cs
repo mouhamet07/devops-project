@@ -14,5 +14,6 @@ namespace gestionStock.Models
         public bool IsArchived{ get; set;} = true;
         public EtatProduit etat { get; set;} = EtatProduit.EN_STOCK;
         public Categorie categorie { get; set;}
+        public int CategorieId { get; set;}
     }
 }

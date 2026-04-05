@@ -1,7 +1,13 @@
+using gestionStock.Services;
+using gestionStock.Services.Impl;
+using gestionStock.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IProduitService, ProduitService>();
+builder.Services.AddDbContext<AppDbContext>();
 
 var app = builder.Build();
 
