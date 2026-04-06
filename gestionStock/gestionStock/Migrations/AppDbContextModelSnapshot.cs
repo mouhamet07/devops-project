@@ -39,7 +39,8 @@ namespace gestionStock.Migrations
 
                     b.Property<string>("Libelle")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
                         .HasColumnName("libelle");
 
                     b.HasKey("Id");
@@ -56,6 +57,10 @@ namespace gestionStock.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategorieId")
+                        .HasColumnType("integer")
+                        .HasColumnName("categorie_id");
+
                     b.Property<bool>("IsArchived")
                         .HasColumnType("boolean")
                         .HasColumnName("is_archived");
@@ -69,16 +74,13 @@ namespace gestionStock.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("quantite");
 
-                    b.Property<int>("categorie_id")
-                        .HasColumnType("integer");
-
                     b.Property<EtatProduit>("etat")
                         .HasColumnType("etat_produit")
                         .HasColumnName("etat");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("categorie_id");
+                    b.HasIndex("CategorieId");
 
                     b.ToTable("produit", (string)null);
                 });
@@ -119,7 +121,7 @@ namespace gestionStock.Migrations
                 {
                     b.HasOne("gestionStock.Models.Categorie", "categorie")
                         .WithMany()
-                        .HasForeignKey("categorie_id")
+                        .HasForeignKey("CategorieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

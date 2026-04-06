@@ -15,23 +15,17 @@ namespace gestionStock.Services.Impl
 
         public bool AddProduit(Produit produit)
         {
-
-            if (produit.Quantite <= 0)
-            {
-                return false;
-            }
-
             var categorie = _context.Categories.Find(produit.CategorieId);
 
-            if (categorie != null)
+            if (produit.Quantite > 0 && categorie != null)
             {
                 produit.categorie = categorie;
 
                 _context.Produits.Add(produit);
                 _context.SaveChanges();
+                return true;
             }
-            return true;
+            return false;
         }
-        }
-        
+    }
 }
