@@ -13,21 +13,13 @@ namespace gestionStock.Services.Impl
             _categorieService = _categorieService;
         }
 
-        public void AddProduit(Produit produit)
+        public bool AddProduit(Produit produit)
         {
-            if (produit == null)
-                return;
 
-            if (produit.Quantite == 0)
+            if (produit.Quantite <= 0)
             {
-                produit.etat = EtatProduit.EN_RUPTURE;
+                return false;
             }
-            else
-            {
-                produit.etat = EtatProduit.EN_STOCK;
-            }
-
-            produit.IsArchived = false;
 
             var categorie = _context.Categories.Find(produit.CategorieId);
 
@@ -38,6 +30,8 @@ namespace gestionStock.Services.Impl
                 _context.Produits.Add(produit);
                 _context.SaveChanges();
             }
+            return true;
         }
         }
+        
 }

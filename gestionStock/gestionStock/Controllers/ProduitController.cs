@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using gestionStock.Models;
 using gestionStock.Services;
+using System.Reflection.PortableExecutable;
 
 namespace gestionStock.Controllers
 {
@@ -27,7 +28,16 @@ namespace gestionStock.Controllers
         [HttpPost]
         public IActionResult Create(Produit produit)
         {
-            _produitService.AddProduit(produit);
+            bool test= _produitService.AddProduit(produit);
+
+            if (!test)
+            {
+                TempData["Error"] = "Le produit n'a pas pu être ajouté. Vérifiez la quantité.";
+                ViewBag.Categories = _categorieService.ListCategories();
+
+                return View();
+            }
+            TempData["Success"] = "Produit ajouté avec succès ";
             return RedirectToAction("Create");
         }
     }

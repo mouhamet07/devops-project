@@ -9,6 +9,19 @@
         <p>Créer un nouveau produit et gérer le stock</p>
     </div>
 
+    @if (TempData["Success"] != null)
+        {
+            <div style="background:#DCFCE7;color:#166534;padding:10px;border-radius:8px;margin-bottom:15px;">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div style="background:#FEE2E2;color:#991B1B;padding:10px;border-radius:8px;margin-bottom:15px;">
+                @TempData["Error"]
+            </div>
+        }
     <form method="post">
 
         <div class="form-grid">
@@ -26,8 +39,10 @@
             <div class="form-group full-width">
                 <label>Catégorie</label>
                 <select name="CategorieId">
-                    <option value="1">Aliment</option>
-                    <option value="2">Boisson</option>
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+                        <option value="@cat.Id">@cat.Libelle</option>
+                    }
                 </select>
             </div>
 

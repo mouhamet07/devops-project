@@ -62,10 +62,12 @@ namespace gestionStock.Data
                 entity.Property(p => p.etat)
                     .HasColumnName("etat")
                     .HasColumnType("etat_produit");
+                entity.Property(p => p.CategorieId)
+                    .HasColumnName("categorie_id");
                 // relation avec categorie
                 entity.HasOne(p => p.categorie)
                     .WithMany()
-                    .HasForeignKey("categorie_id")
+                    .HasForeignKey(p => p.CategorieId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
         }
