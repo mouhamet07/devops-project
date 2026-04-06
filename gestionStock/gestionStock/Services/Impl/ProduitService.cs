@@ -6,9 +6,11 @@ namespace gestionStock.Services.Impl
     public class ProduitService : IProduitService 
     {
         private readonly AppDbContext _context;
-        public ProduitService(AppDbContext context)
+        private readonly ICategorieService _categorieService;
+        public ProduitService(AppDbContext context, ICategorieService categorieService)
         {
             _context = context;
+            _categorieService = _categorieService;
         }
 
         public void AddProduit(Produit produit)
