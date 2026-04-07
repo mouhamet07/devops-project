@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HILLY MARYSE\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj": {}
+    "C:\\Users\\mouha\\Desktop\\devops\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HILLY MARYSE\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj": {
+    "C:\\Users\\mouha\\Desktop\\devops\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HILLY MARYSE\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj",
+        "projectUniqueName": "C:\\Users\\mouha\\Desktop\\devops\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj",
         "projectName": "gestionStock",
-        "projectPath": "C:\\Users\\HILLY MARYSE\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj",
-        "packagesPath": "C:\\Users\\HILLY MARYSE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HILLY MARYSE\\devops-project\\gestionStock\\gestionStock\\obj\\",
+        "projectPath": "C:\\Users\\mouha\\Desktop\\devops\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj",
+        "packagesPath": "C:\\Users\\mouha\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mouha\\Desktop\\devops\\devops-project\\gestionStock\\gestionStock\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HILLY MARYSE\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\mouha\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
