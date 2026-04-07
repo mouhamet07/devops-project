@@ -10,11 +10,13 @@ namespace gestionStock.Services.Impl
         public ProduitService(AppDbContext context, ICategorieService categorieService)
         {
             _context = context;
-            _categorieService = _categorieService;
+            _categorieService = categorieService;
         }
 
         public bool AddProduit(Produit produit)
         {
+            
+
             var categorie = _context.Categories.Find(produit.CategorieId);
 
             if (produit.Quantite > 0 && categorie != null)
@@ -23,8 +25,12 @@ namespace gestionStock.Services.Impl
 
                 _context.Produits.Add(produit);
                 _context.SaveChanges();
+
+                
                 return true;
             }
+
+            
             return false;
         }
     }
