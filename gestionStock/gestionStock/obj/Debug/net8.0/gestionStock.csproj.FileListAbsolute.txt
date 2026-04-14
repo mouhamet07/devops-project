@@ -1,6 +1,5 @@
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\appsettings.json
-C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\global.json
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\gestionStock.staticwebassets.runtime.json
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\gestionStock.exe
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\gestionStock.deps.json
@@ -90,11 +89,6 @@ C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\gestionStock.sourcelink.json
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets.development.json
-C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets\msbuild.gestionStock.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets\msbuild.build.gestionStock.props
-C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.gestionStock.props
-C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.gestionStock.props
-C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\scopedcss\bundle\gestionStock.styles.css
 C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\scopedcss\projectbundle\gestionStock.bundle.scp.css
@@ -210,3 +204,14 @@ C:\Users\HILLY MARYSE\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\
 C:\Users\HILLY MARYSE\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\gestionS.E9382CE0.Up2Date
 C:\Users\HILLY MARYSE\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\gestionStock.genruntimeconfig.cache
 C:\Users\HILLY MARYSE\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\ref\gestionStock.dll
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\gestionStock.staticwebassets.endpoints.json
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\Prometheus.NetStandard.dll
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\bin\Debug\net8.0\Prometheus.AspNetCore.dll
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\gestionStock.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\mouha\Desktop\devops\devops-project\gestionStock\gestionStock\obj\Debug\net8.0\swae.build.ex.cache
