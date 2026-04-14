@@ -28,7 +28,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Produit}/{action=Create}/{id?}");
+    pattern: "{controller=Produit}/{action=List}");
 
 app.UseHttpMetrics();
 app.MapMetrics();

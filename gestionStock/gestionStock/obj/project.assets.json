@@ -2435,19 +2435,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nyadz\\.nuget\\packages\\": {}
+    "C:\\Users\\mouha\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nyadz\\Downloads\\devops-project-dev\\devops-project-dev\\gestionStock\\gestionstock\\gestionStock.csproj",
+      "projectUniqueName": "C:\\Users\\mouha\\Desktop\\devops\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj",
       "projectName": "gestionStock",
-      "projectPath": "C:\\Users\\nyadz\\Downloads\\devops-project-dev\\devops-project-dev\\gestionStock\\gestionstock\\gestionStock.csproj",
-      "packagesPath": "C:\\Users\\nyadz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nyadz\\Downloads\\devops-project-dev\\devops-project-dev\\gestionStock\\gestionstock\\obj\\",
+      "projectPath": "C:\\Users\\mouha\\Desktop\\devops\\devops-project\\gestionStock\\gestionStock\\gestionStock.csproj",
+      "packagesPath": "C:\\Users\\mouha\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mouha\\Desktop\\devops\\devops-project\\gestionStock\\gestionStock\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nyadz\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\mouha\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2471,7 +2471,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -2516,19 +2516,19 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.21, 8.0.21]"
+            "version": "[8.0.22, 8.0.22]"
           },
           {
             "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.21, 8.0.21]"
+            "version": "[8.0.22, 8.0.22]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.21, 8.0.21]"
+            "version": "[8.0.22, 8.0.22]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.21, 8.0.21]"
+            "version": "[8.0.22, 8.0.22]"
           }
         ],
         "frameworkReferences": {
@@ -2539,7 +2539,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

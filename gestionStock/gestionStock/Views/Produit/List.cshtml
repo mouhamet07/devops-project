@@ -31,10 +31,10 @@
     <!-- Formulaire de filtrage -->
     <form method="get" asp-action="List" class="mb-3">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <input type="text" name="search" class="form-control" placeholder="Rechercher par nom..." value="@ViewBag.CurrentSearch">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <select name="category" class="form-control">
                     <option value="">Filtrer par catégorie</option>
                     @foreach (var cat in ViewBag.Categories ?? new List<gestionStock.Models.Categorie>())
@@ -50,7 +50,7 @@
                     }
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <select name="state" class="form-control">
                     <option value="">Tous les états</option>
                     @if (ViewBag.CurrentState == "disponible")
@@ -71,8 +71,10 @@
                     }
                 </select>
             </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Filtrer</button>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-2">Filtrer</button>
     </form>
 
     <!-- Tableau des produits -->
