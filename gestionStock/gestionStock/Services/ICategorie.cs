@@ -6,6 +6,7 @@ namespace gestionStock.Services
     {
         List<Categorie> ListCategories() ;
         Categorie? FindById(int id);
+        Categorie? GetCategorieByName(string name);
         bool AddCategorie(Categorie categorie);
     }
 }

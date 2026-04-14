@@ -30,5 +30,11 @@ namespace gestionStock.Services.Impl
             return _context.Categories
                 .FirstOrDefault(c => c.Id == id && !c.IsArchived);
         }
+
+        public Categorie? GetCategorieByName(string name)
+        {
+            return _context.Categories
+                .FirstOrDefault(c => c.Libelle == name && !c.IsArchived);
+        }
     }
 }
