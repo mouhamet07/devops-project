@@ -1,0 +1,190 @@
+@model List<gestionStock.Models.Produit>
+
+@{
+    ViewData["Title"] = "Liste des produits";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Liste des produits</h1>
+
+    <div class="mb-3">
+        <a class="text-white btn btn-primary" asp-area="" asp-controller="Produit" asp-action="Create">Ajouter un nouveau produit</a>
+    </div>
+
+    <!-- Messages de succès/erreur -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Formulaire de filtrage -->
+    <form method="get" asp-action="List" class="mb-3">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="search" class="form-control" placeholder="Rechercher par nom..." value="@ViewBag.CurrentSearch">
+            </div>
+            <div class="col-md-4">
+                <select name="category" class="form-control">
+                    <option value="">Filtrer par catégorie</option>
+                    @foreach (var cat in ViewBag.Categories ?? new List<gestionStock.Models.Categorie>())
+                    {
+                        if (ViewBag.CurrentCategory == cat.Libelle)
+                        {
+                            <option value="@cat.Libelle" selected>@cat.Libelle</option>
+                        }
+                        else
+                        {
+                            <option value="@cat.Libelle">@cat.Libelle</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select name="state" class="form-control">
+                    <option value="">Tous les états</option>
+                    @if (ViewBag.CurrentState == "disponible")
+                    {
+                        <option value="disponible" selected>En stock</option>
+                    }
+                    else
+                    {
+                        <option value="disponible">En stock</option>
+                    }
+                    @if (ViewBag.CurrentState == "rupture")
+                    {
+                        <option value="rupture" selected>En rupture</option>
+                    }
+                    else
+                    {
+                        <option value="rupture">En rupture</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Filtrer</button>
+    </form>
+
+    <!-- Tableau des produits -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Catégorie</th>
+                    <th>Quantité</th>
+                    <th>État</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var produit in Model)
+                    {
+                        <tr>
+                            <td>@produit.Id</td>
+                            <td>@produit.Libelle</td>
+                            <td>@(produit.categorie?.Libelle ?? "N/A")</td>
+                            <td>@produit.Quantite</td>
+                            <td>
+                                @if (produit.Quantite > 0)
+                                {
+                                    <span class="badge bg-success">En stock</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">En rupture</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@produit.Id" class="btn btn-sm btn-warning">Modifier</a>
+                                <a asp-action="Delete" asp-route-id="@produit.Id" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?');">Supprimer</a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucun produit trouvé</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Info pagination -->
+    @{
+        int totalPages = ViewBag.TotalPages ?? 1;
+        int currentPage = ViewBag.CurrentPage ?? 1;
+        int totalCount = ViewBag.TotalCount ?? 0;
+        int pageSize = ViewBag.PageSize ?? 6;
+    }
+    
+    @if (totalPages > 1)
+    {
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <!-- Bouton Précédent -->
+                @if (currentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="List" asp-route-page="@(currentPage - 1)" asp-route-search="@ViewBag.CurrentSearch" asp-route-category="@ViewBag.CurrentCategory" asp-route-state="@ViewBag.CurrentState">Précédent</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">Précédent</span>
+                    </li>
+                }
+
+                <!-- Numéros de pages -->
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    @if (i == currentPage)
+                    {
+                        <li class="page-item active">
+                            <span class="page-link">@i</span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="List" asp-route-page="@i" asp-route-search="@ViewBag.CurrentSearch" asp-route-category="@ViewBag.CurrentCategory" asp-route-state="@ViewBag.CurrentState">@i</a>
+                        </li>
+                    }
+                }
+
+                <!-- Bouton Suivant -->
+                @if (currentPage < totalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="List" asp-route-page="@(currentPage + 1)" asp-route-search="@ViewBag.CurrentSearch" asp-route-category="@ViewBag.CurrentCategory" asp-route-state="@ViewBag.CurrentState">Suivant</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">Suivant</span>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>
+
+
+
