@@ -10,7 +10,8 @@ namespace gestionStock.Services
         List<Produit> GetAllProduits(int page = 1, string categorie = "all", string etat = "all");
         List<Produit> GetAllProduitsNoPage(string categorie = "all", string etat = "all");
         List<Produit> SearchProduits(string searchTerm);
-        //void UpdateProduit(Produit produit);
+        Produit? GetProduitById(int id);
+        bool UpdateProduit(Produit produit);
 
     }
 }
