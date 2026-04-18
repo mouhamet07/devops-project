@@ -102,5 +102,36 @@ namespace gestionStock.Controllers
             }
             return View(produit);
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var produit = _produitService.GetProduitById(id);
+
+            if (produit == null)
+            {
+                TempData["Error"] = "Produit introuvable";
+                return RedirectToAction("List");
+            }
+
+            ViewBag.Categories = _categorieService.ListCategories();
+            return View(produit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Produit produit)
+        {
+            bool updated = _produitService.UpdateProduit(produit);
+
+            if (!updated)
+            {
+                TempData["Error"] = "Erreur lors de la modification";
+                ViewBag.Categories = _categorieService.ListCategories();
+                return View(produit);
+            }
+
+            TempData["Success"] = "Produit modifié avec succès";
+            return RedirectToAction("List");
+        }
     }
 }

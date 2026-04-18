@@ -77,7 +77,9 @@ namespace gestionStock.Services.Impl
                 query = query.Where(p => p.Quantite > 0 == isDisponible);
             }
 
-            return query.ToList();
+            return query
+            .OrderByDescending(p => p.Id)
+            .ToList();
         }
 
         public int CountTotal(string categorie = "all", string etat = "all")
@@ -120,6 +122,33 @@ namespace gestionStock.Services.Impl
         public Produit? GetProduitByName(string name)
         {
             return _context.Produits.FirstOrDefault(p => p.Libelle == name);
+        }
+
+        public Produit? GetProduitById(int id)
+        {
+            return _context.Produits.FirstOrDefault(p => p.Id == id);
+        }
+
+        public bool UpdateProduit(Produit produit)
+        {
+            var existing = _context.Produits.FirstOrDefault(p => p.Id == produit.Id);
+
+            if (existing == null)
+                return false;
+
+            var categorie = _context.Categories.Find(produit.CategorieId);
+
+            if (categorie == null || produit.Quantite < 0)
+                return false;
+
+            existing.Libelle = produit.Libelle;
+            existing.Quantite = produit.Quantite;
+            existing.CategorieId = produit.CategorieId;
+            existing.categorie = categorie;
+
+            _context.SaveChanges();
+
+            return true;
         }
     }
 }
