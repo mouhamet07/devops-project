@@ -12,7 +12,6 @@ namespace gestionStock.Services
         List<Produit> SearchProduits(string searchTerm);
         Produit? GetProduitById(int id);
         bool UpdateProduit(Produit produit);
-        //void UpdateProduit(Produit produit);
 
     }
 }
