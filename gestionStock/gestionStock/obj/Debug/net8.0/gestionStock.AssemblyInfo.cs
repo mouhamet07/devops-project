@@ -13,11 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("gestionStock")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f6874913bdaa1e32d69043c9688238bee01864a")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cbd4c9786f7119f79ed0238b81f84d451405fa1a")]
->>>>>>> lister-filtrer
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae895b42e2df031e1e966775634cb35237f81a81")]
 [assembly: System.Reflection.AssemblyProductAttribute("gestionStock")]
 [assembly: System.Reflection.AssemblyTitleAttribute("gestionStock")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
