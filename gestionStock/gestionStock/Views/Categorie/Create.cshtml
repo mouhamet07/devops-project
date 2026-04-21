@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Ajouter categorie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-full">
+    @model gestionStock.Models.Categorie
+
+    @if(TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+    }
+
+    @if(TempData["error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["error"]
+        </div>
+    }
+    <div class="header">
+        <h1>Ajouter une catégorie</h1>
+        <p>Créer une nouvelle catégorie</p>
+    </div>
+
+    <form method="post">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Libellé</label>
+                <input type="text" name="Libelle" placeholder="Ex: Aliment, Boisson" />
+            </div>
+
+        </div>
+
+        <div class="button-area">
+
+            <button type="submit" class="btn">
+                Ajouter la catégorie
+            </button>
+
+        </div>
+
+    </form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}
+</div>

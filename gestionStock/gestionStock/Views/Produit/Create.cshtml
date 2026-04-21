@@ -1,0 +1,110 @@
+@model gestionStock.Models.Produit
+
+@{
+    ViewData["Title"] = "Ajouter produit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-full">
+
+    <div class="header">
+        <h1>Ajouter un produit</h1>
+        <p>Créer un nouveau produit et gérer le stock</p>
+    </div>
+
+    @if (TempData.ContainsKey("Success"))
+    {
+        <div style="background:#DCFCE7;color:#166534;padding:10px;border-radius:8px;margin-bottom:15px;">
+            @TempData["Success"]
+        </div>
+    }
+
+    @if (TempData.ContainsKey("Error"))
+    {
+        <div style="background:#FEE2E2;color:#991B1B;padding:10px;border-radius:8px;margin-bottom:15px;">
+            @TempData["Error"]
+        </div>
+    }
+
+    <form method="post" asp-action="Create">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Libellé</label>
+                <input asp-for="Libelle" class="form-control" />
+                <span asp-validation-for="Libelle" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Quantité</label>
+                <input asp-for="Quantite" class="form-control" />
+                <span asp-validation-for="Quantite" class="text-danger"></span>
+            </div>
+
+            <div class="form-group full-width">
+                <label>Catégorie</label>
+                <select asp-for="CategorieId">
+                    <option value="">-- Sélectionnez une catégorie --</option>
+                    @foreach (var cat in (List<gestionStock.Models.Categorie>)ViewBag.Categories)
+                    {
+                        <option value="@cat.Id">@cat.Libelle</option>
+                    }
+                </select>
+                <span asp-validation-for="CategorieId" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="button-area">
+
+            <div class="status-box">
+                <div>
+                    <span class="badge stock">En stock</span>
+                    <span class="badge rupture">Rupture</span>
+                </div>
+                <span id="etatText" class="etat-text"></span>
+            </div>
+
+            <button type="submit" class="btn">
+                Ajouter le produit
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+    const quantiteInput = document.querySelector('input[name="Quantite"]');
+    const stockBadge = document.querySelector('.stock');
+    const ruptureBadge = document.querySelector('.rupture');
+    const etatText = document.getElementById("etatText");
+
+    function updateEtat() {
+        const value = parseInt(quantiteInput.value);
+
+        if (value > 0) {
+            stockBadge.classList.add("active");
+            ruptureBadge.classList.remove("active");
+
+            etatText.innerText = "Produit disponible";
+            etatText.style.color = "#16A34A";
+        } else {
+            ruptureBadge.classList.add("active");
+            stockBadge.classList.remove("active");
+
+            etatText.innerText = "Produit en rupture";
+            etatText.style.color = "#DC2626";
+        }
+    }
+
+    quantiteInput.addEventListener('input', updateEtat);
+
+    updateEtat();
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

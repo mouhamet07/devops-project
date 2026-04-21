@@ -3,11 +3,15 @@ namespace gestionStock.Services
 {
     public interface IProduitService
     {
-        void AddProduit(Produit produit);
-        User? GetProduitById(int id);
-        int CountTotal( string categorie ="all",string etat = "all" );
-        List<Produit> GetAllProduits(int page = 1, string categorie ="all",string etat = "all" );
-        void UpdateProduit(Produit produit);
+        bool AddProduit(Produit produit);
+        Produit? GetProduitByName(string name);
+        List<Produit> GetProduitsByCategorie(int categorieId);
+        int CountTotal(string categorie = "all", string etat = "all");
+        List<Produit> GetAllProduits(int page = 1, string categorie = "all", string etat = "all");
+        List<Produit> GetAllProduitsNoPage(string categorie = "all", string etat = "all");
+        List<Produit> SearchProduits(string searchTerm);
+        Produit? GetProduitById(int id);
+        bool UpdateProduit(Produit produit);
 
     }
 }
